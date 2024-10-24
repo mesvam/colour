@@ -12,6 +12,7 @@ The following attributes and methods are available:
 -   :func:`colour.difference.delta_E_CIE2000`
 -   :func:`colour.difference.delta_E_CMC`
 -   :func:`colour.difference.delta_E_ITP`
+-   :func:`colour.difference.delta_E_HyAB`
 
 References
 ----------
@@ -37,6 +38,10 @@ Melgosa_CIEDE2000_Workshop-July4.pdf
     30(1), 21-30. doi:10.1002/col.20070
 -   :cite:`Mokrzycki2011` : Mokrzycki, W., & Tatol, M. (2011). Color difference
     Delta E - A survey. Machine Graphics and Vision, 20, 383-411.
+-   :cite:`Abasi2020` :  Abasi S, Amani Tehran M, Fairchild MD.
+    Distance metrics for very large color differences.
+    Color Res Appl. 2020; 45: 208-223. https://doi.org/10.1002/col.22451
+    Retrieved October 23, 2024, from http://markfairchild.org/PDFs/PAP40.pdf
 """
 
 from __future__ import annotations
@@ -65,6 +70,7 @@ __all__ = [
     "delta_E_CIE2000",
     "delta_E_CMC",
     "delta_E_ITP",
+    "delta_E_HyAB",
 ]
 
 JND_CIE1976 = 2.3
@@ -560,3 +566,56 @@ def delta_E_ITP(ICtCp_1: ArrayLike, ICtCp_2: ArrayLike) -> NDArrayFloat:
     )
 
     return as_float(d_E_ITP)
+
+
+def delta_E_HyAB(Lab_1: ArrayLike, Lab_2: ArrayLike) -> NDArrayFloat:
+    """
+    Return the difference between two *CIE L\\*a\\*b\\** colourspace arrays
+    This metric is intended for large color differences,
+    on the order of 10 CIELAB units or greater
+
+    Parameters
+    ----------
+    Lab_1
+        *CIE L\\*a\\*b\\** colourspace array 1.
+    Lab_2
+        *CIE L\\*a\\*b\\** colourspace array 2.
+
+    Returns
+    -------
+    :class:`numpy.ndarray`
+        Colour difference HyAB.
+
+    Notes
+    -----
+    +------------+-----------------------+-------------------+
+    | **Domain** | **Scale - Reference** | **Scale - 1**     |
+    +============+=======================+===================+
+    | ``Lab_1``  | ``L_1`` : [0, 100]    | ``L_1`` : [0, 1]  |
+    |            |                       |                   |
+    |            | ``a_1`` : [-100, 100] | ``a_1`` : [-1, 1] |
+    |            |                       |                   |
+    |            | ``b_1`` : [-100, 100] | ``b_1`` : [-1, 1] |
+    +------------+-----------------------+-------------------+
+    | ``Lab_2``  | ``L_2`` : [0, 100]    | ``L_2`` : [0, 1]  |
+    |            |                       |                   |
+    |            | ``a_2`` : [-100, 100] | ``a_2`` : [-1, 1] |
+    |            |                       |                   |
+    |            | ``b_2`` : [-100, 100] | ``b_2`` : [-1, 1] |
+    +------------+-----------------------+-------------------+
+
+    References
+    ----------
+    :cite:`Abasi2020`
+
+    Examples
+    --------
+    >>> Lab_1 = np.array([25.0, 8.0, -14.0])
+    >>> Lab_2 = np.array([75.0, -35.0, 16.0])
+    >>> delta_E_CIE2000(Lab_1, Lab_2)  # doctest: +ELLIPSIS
+    102.4309069...
+    """
+    dLab = to_domain_100(Lab_2) - to_domain_100(Lab_1)
+    dL, da, db = np.moveaxis(dLab, -1, 0)
+    HyAB = np.abs(dL) + np.sqrt(da**2 + db**2)
+    return HyAB

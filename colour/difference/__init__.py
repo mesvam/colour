@@ -50,6 +50,7 @@ from .delta_e import (
     delta_E_CIE2000,
     delta_E_CMC,
     delta_E_ITP,
+    delta_E_HyAB,
 )
 from .din99 import delta_E_DIN99
 from .huang2015 import power_function_Huang2015
@@ -72,6 +73,7 @@ __all__ += [
     "delta_E_CIE2000",
     "delta_E_CMC",
     "delta_E_ITP",
+    "delta_E_HyAB",
 ]
 __all__ += [
     "delta_E_DIN99",
@@ -99,6 +101,7 @@ DELTA_E_METHODS: CanonicalMapping = CanonicalMapping(
         "CAM16-SCD": delta_E_CAM16SCD,
         "CAM16-UCS": delta_E_CAM16UCS,
         "DIN99": delta_E_DIN99,
+        "HyAB": delta_E_HyAB,
     }
 )
 DELTA_E_METHODS.__doc__ = """
@@ -138,6 +141,7 @@ def delta_E(
             "CAM16-SCD",
             "CAM16-UCS",
             "DIN99",
+            "HyAB",
         ]
         | str
     ) = "CIE 2000",

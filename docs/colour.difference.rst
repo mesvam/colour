@@ -115,6 +115,18 @@ DIN99
 
     delta_E_DIN99
 
+HyAB
+-----
+
+``colour.difference``
+
+.. currentmodule:: colour.difference
+
+.. autosummary::
+    :toctree: generated/
+
+    delta_E_HyAB
+
 Standardized Residual Sum of Squares (STRESS) Index
 ---------------------------------------------------
 
