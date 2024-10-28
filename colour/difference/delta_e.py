@@ -612,7 +612,7 @@ def delta_E_HyAB(Lab_1: ArrayLike, Lab_2: ArrayLike) -> NDArrayFloat:
     --------
     >>> Lab_1 = np.array([25.0, 8.0, -14.0])
     >>> Lab_2 = np.array([75.0, -35.0, 16.0])
-    >>> delta_E_CIE2000(Lab_1, Lab_2)  # doctest: +ELLIPSIS
+    >>> delta_E_HyAB(Lab_1, Lab_2)  # doctest: +ELLIPSIS
     102.4309069...
     """
     dLab = to_domain_100(Lab_2) - to_domain_100(Lab_1)
