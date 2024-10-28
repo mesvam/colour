@@ -618,4 +618,4 @@ def delta_E_HyAB(Lab_1: ArrayLike, Lab_2: ArrayLike) -> NDArrayFloat:
     dLab = to_domain_100(Lab_1 - Lab_2)
     dL, da, db = tsplit(dLab)
     HyAB = np.abs(dL) + np.sqrt(da**2 + db**2)
-    return HyAB
+    return as_float(HyAB)
