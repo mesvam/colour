@@ -23,6 +23,7 @@ from colour.difference import (
     delta_E_HyAB,
     delta_E_ITP,
 )
+from colour.difference.delta_e import intermediate_attributes_CIE2000
 from colour.utilities import domain_range_scale, ignore_numpy_errors
 
 __author__ = "Colour Developers"
@@ -223,6 +224,38 @@ class TestDelta_E_CIE1994:
         cases = [-1.0, 0.0, 1.0, -np.inf, np.inf, np.nan]
         cases = np.array(list(set(product(cases, repeat=3))))
         delta_E_CIE1994(cases, cases)
+
+
+class TestIntermediateAttributes_CIE2000:
+    """
+    Define :func:`colour.difference.delta_e.intermediate_attributes_CIE2000`
+    definition unit tests methods.
+    """
+
+    def test_intermediate_attributes_CIE2000(self):
+        """
+        Test :func:`colour.difference.delta_e.intermediate_attributes_CIE2000`
+        definition.
+        """
+
+        np.testing.assert_allclose(
+            intermediate_attributes_CIE2000(
+                np.array([48.99183622, -0.10561667, 400.65619925]),
+                np.array([50.65907324, -0.11671910, 402.82235718]),
+            ),
+            np.array(
+                [
+                    1.00010211,
+                    19.07826821,
+                    4.72266955,
+                    1.66723702,
+                    2.16616092,
+                    0.01050306,
+                    -0.00000000,
+                ]
+            ),
+            atol=TOLERANCE_ABSOLUTE_TESTS,
+        )
 
 
 class TestDelta_E_CIE2000:
