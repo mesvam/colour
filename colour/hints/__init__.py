@@ -589,6 +589,7 @@ LiteralDeltaEMethod = Literal[
     "CMC",
     "DIN99",
     "HyAB",
+    "HyCH",
     "ITP",
     "cie1976",
     "cie1994",

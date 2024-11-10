@@ -127,6 +127,18 @@ HyAB
 
     delta_E_HyAB
 
+HyCH
+-----
+
+``colour.difference``
+
+.. currentmodule:: colour.difference
+
+.. autosummary::
+    :toctree: generated/
+
+    delta_E_HyCH
+
 Standardized Residual Sum of Squares (STRESS) Index
 ---------------------------------------------------
 

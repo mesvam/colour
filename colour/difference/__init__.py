@@ -54,6 +54,7 @@ from .delta_e import (
     delta_E_CMC,
     delta_E_ITP,
     delta_E_HyAB,
+    delta_E_HyCH,
 )
 from .din99 import delta_E_DIN99
 from .huang2015 import power_function_Huang2015
@@ -77,6 +78,7 @@ __all__ += [
     "delta_E_CMC",
     "delta_E_ITP",
     "delta_E_HyAB",
+    "delta_E_HyCH",
 ]
 __all__ += [
     "delta_E_DIN99",
@@ -105,6 +107,7 @@ DELTA_E_METHODS: CanonicalMapping = CanonicalMapping(
         "CAM16-UCS": delta_E_CAM16UCS,
         "DIN99": delta_E_DIN99,
         "HyAB": delta_E_HyAB,
+        "HyCH": delta_E_HyCH,
     }
 )
 DELTA_E_METHODS.__doc__ = """
@@ -210,6 +213,10 @@ def delta_E(
     >>> b = np.array([53.12207516, -39.92365056, 249.54831278])
     >>> delta_E(a, b, method="HyAB")  # doctest: +ELLIPSIS
     151.0215481...
+    >>> a = np.array([39.91531343, 51.16658481, 146.12933781])
+    >>> b = np.array([53.12207516, -39.92365056, 249.54831278])
+    >>> delta_E(a, b, method="HyCH")  # doctest: +ELLIPSIS
+    48.66427941...
     """
 
     method = validate_method(method, tuple(DELTA_E_METHODS))
