@@ -288,7 +288,9 @@ class Attributes_Specification_CIE2000(MixinDataclassArithmetic):
     R_T: float | NDArrayFloat | None = field(default_factory=lambda: None)
 
 
-def intermediate_attributes_CIE2000(Lab_1: ArrayLike, Lab_2: ArrayLike) -> NDArrayFloat:
+def intermediate_attributes_CIE2000(
+    Lab_1: ArrayLike, Lab_2: ArrayLike
+) -> Attributes_Specification_CIE2000:
     """
     Return the intermediate attributes to compute the difference
     :math:`\\Delta E_{00}` between two given *CIE L\\*a\\*b\\** colourspace
