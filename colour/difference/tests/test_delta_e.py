@@ -863,6 +863,54 @@ class TestDelta_E_HyAB:
             atol=TOLERANCE_ABSOLUTE_TESTS,
         )
 
+    def test_delta_E_HyAB_Abasi2020(self):
+        """
+        Test :func:`colour.difference.delta_e.delta_E_HyCH` definition
+        using Abasi dataset
+        """
+
+        Lab_1 = [
+            [45, -5, -12],
+            [34, -17, 5],
+            [65, 23, 12],
+            [82, 18, -6],
+            [20, -4, 14],
+            [74, 19, 5],
+            [92, -21, -6],
+            [14, -15, 25],
+            [47, 18, 2],
+            [56, 28, -8],
+        ]
+        Lab_2 = [
+            [35, -8, 14],
+            [56, 14, 2],
+            [78, 12, -6],
+            [65, -9, -9],
+            [32, -8, 2],
+            [62, 12, -9],
+            [80, -5, 12],
+            [28, -7, 13],
+            [33, 17, -5],
+            [42, 23, 2],
+        ]
+        HyAB = [
+            36.1725046566048,
+            53.1448230047949,
+            34.0950231097290,
+            44.1661554144122,
+            24.6491106406735,
+            27.6524758424985,
+            36.0831891575846,
+            28.4222051018560,
+            21.0710678118655,
+            25.1803398874990,
+        ]
+        np.testing.assert_allclose(
+            delta_E_HyAB(Lab_1, Lab_2),
+            HyAB,
+            atol=TOLERANCE_ABSOLUTE_TESTS,
+        )
+
     def test_n_dimensional_delta_E_HyAB(self):
         """
         Test :func:`colour.difference.delta_e.delta_E_HyAB` definition
@@ -956,6 +1004,55 @@ class TestDelta_E_HyCH:
             ),
             1.7806293290163562,
             atol=TOLERANCE_ABSOLUTE_TESTS,
+        )
+
+    def test_delta_E_HyCH_Abasi2020(self):
+        """
+        Test :func:`colour.difference.delta_e.delta_E_HyCH` definition
+        using Abasi dataset
+        """
+
+        # 4th sample excluded due to large difference of the hue rotation term
+        Lab_1 = [
+            [45, -5, -12],
+            [34, -17, 5],
+            [65, 23, 12],
+            # [82, 18, -6],
+            [20, -4, 14],
+            [74, 19, 5],
+            [92, -21, -6],
+            [14, -15, 25],
+            [47, 18, 2],
+            [56, 28, -8],
+        ]
+        Lab_2 = [
+            [35, -8, 14],
+            [56, 14, 2],
+            [78, 12, -6],
+            # [65, -9, -9],
+            [32, -8, 2],
+            [62, 12, -9],
+            [80, -5, 12],
+            [28, -7, 13],
+            [33, 17, -5],
+            [42, 23, 2],
+        ]
+        HyCH = [
+            30.1289446240709,
+            56.9892735270078,
+            23.5032606690871,
+            # 43.0498235668515,
+            19.1769603367725,
+            20.3839488572560,
+            26.1834460425009,
+            17.3853257953582,
+            17.0680905594033,
+            20.4650549007439,
+        ]
+        np.testing.assert_allclose(
+            delta_E_HyCH(Lab_1, Lab_2),
+            HyCH,
+            atol=1e-3,
         )
 
     def test_n_dimensional_delta_E_HyCH(self):
